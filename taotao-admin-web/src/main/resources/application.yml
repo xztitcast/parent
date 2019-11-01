@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  tomcat:    uri-encoding: UTF-8
+    
+spring:
+  main:    allow-bean-definition-overriding: true  application:    name: taotao-admin-web
+  profiles:    active:    - dev
+  jackson:    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  redis:
+    database: 10    host: 192.168.25.108
+    port: 6379
+    timeout: 20s
+    lettuce:      pool:        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+    dubbo:  application:    name: ${spring.application.name}
+  consumer:    check: false
+    timeout: 60000
+    loadbalance: roundrobin
+  registry:    protocol: zookeeper
+    address: 192.168.25.102:2181

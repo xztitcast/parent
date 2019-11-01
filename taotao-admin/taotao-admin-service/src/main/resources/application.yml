@@ -1,0 +1,49 @@
+server:
+  port: 8081
+  tomcat:    uri-encoding: UTF-8
+    
+spring:
+  main:    allow-bean-definition-overriding: true  application:    name: taotao-admin-service
+  profiles:    active:    - dev
+  redis:    database: 5
+    host: 192.168.25.108
+    port: 6379
+    timeout: 20s
+    lettuce:      pool:        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+  datasource:    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.25.107:3306/taotao?allowMultiQueries=true&useUnicode=true&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: user
+    password: jiushi123
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: CmsHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+      
+dubbo:
+  application:    name: ${spring.application.name}
+  protocol:    name: dubbo
+    port: 20880
+    dispatcher: message
+    threadpool: fixed
+    threads: 100
+  registry:    protocol: zookeeper
+    address: 192.168.25.102:2181
+    
+mybatis:  mapper-locations:  - classpath:admin/mapper/**/*.xml
+  type-aliases-package: com.taotao.admin.*
+  configuration:    call-setters-on-nulls: true
+    map-underscore-to-camel-case: true
+pagehelper:  helper-dialect: mysql
+  params: count=countSql
+logging:
+  level:
+    com.theatrechain.cms.mapper: debug
