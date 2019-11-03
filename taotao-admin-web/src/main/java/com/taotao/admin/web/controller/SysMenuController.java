@@ -40,7 +40,7 @@ public class SysMenuController extends BaseController {
 	@GetMapping("/list")
 	@RequiresPermissions("sys:menu:list")
 	public List<SysMenu> list(){
-		List<SysMenu> menuList = sysMenuService.getUserMenuList(getUserId());
+		List<SysMenu> menuList = sysMenuService.queryList();
 		menuList.forEach(m -> {
 			SysMenu menu = sysMenuService.queryById(m.getParentId());
 			m.setParentName(menu.getName());

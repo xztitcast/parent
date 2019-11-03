@@ -37,4 +37,6 @@ public interface SysMenuService {
 	default void delete(Long menuId) {};
 	
 	default SysMenu queryById(Long menuId) {return null;};
+	
+	default List<SysMenu> queryList(){return null;}
 }

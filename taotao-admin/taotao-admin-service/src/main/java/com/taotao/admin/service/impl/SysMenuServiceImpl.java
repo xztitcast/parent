@@ -75,6 +75,11 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return sysMenuMapper.selectById(menuId);
 	}
 
+	@Override
+	public List<SysMenu> queryList() {
+		return sysMenuMapper.selectAll();
+	}
+
 	/**
 	 * 获取所有菜单列表
 	 */
