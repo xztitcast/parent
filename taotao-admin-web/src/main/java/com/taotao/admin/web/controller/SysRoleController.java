@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,8 @@ import com.taotao.common.entity.P;
 import com.taotao.common.entity.R;
 import com.taotao.common.utils.Constant;
 
-@RestController("/sys/role")
+@RestController
+@RequestMapping("/sys/role")
 public class SysRoleController extends BaseController {
 	
 	@Reference(interfaceClass = SysRoleService.class)
@@ -37,7 +39,7 @@ public class SysRoleController extends BaseController {
 	}
 	
 	@GetMapping("/select")
-	@RequiresPermissions("sys:role:select")
+	//@RequiresPermissions("sys:role:select")
 	public R select() {
 		List<SysRole> list = sysRoleService.queryList(getUserId() == Constant.SUPER_ADMIN ? null :  getUserId());
 		return R.ok(list);

@@ -13,7 +13,7 @@ import com.taotao.admin.service.SysMenuService;
 import com.taotao.admin.service.SysUserService;
 import com.taotao.common.utils.Constant;
 
-@Component
+@Component("sysMenuService")
 @Service(interfaceClass = SysMenuService.class)
 public class SysMenuServiceImpl implements SysMenuService {
 	

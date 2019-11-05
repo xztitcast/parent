@@ -103,10 +103,10 @@
   	  sys_role
   	<where>
   		1 = 1
-  		<if test="roleNmae != null">
+  		<if test="roleName != null">
   			AND role_name = #{roleName}
   		</if>
-  		<if test="userId != null">
+  		<if test="createUserId != null">
   			AND create_user_id = #{createUserId}
   		</if>
   	</where>

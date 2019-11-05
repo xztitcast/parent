@@ -178,7 +178,7 @@
   	  ur.user_id = #{userId}
   </select>
   
-  <select id="queryByUserName" resultType="java.lang.String" parameterType="java.lang.String">
+  <select id="queryByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
   	select
   	  <include refid="Base_Column_List" />
   	from

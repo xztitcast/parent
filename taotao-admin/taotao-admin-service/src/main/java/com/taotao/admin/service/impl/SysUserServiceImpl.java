@@ -18,7 +18,7 @@ import com.taotao.common.entity.P;
 import com.taotao.common.exce.TaotaoAdminException;
 import com.taotao.common.utils.Constant;
 
-@Component
+@Component("sysUserService")
 @Service(interfaceClass = SysUserService.class)
 public class SysUserServiceImpl implements SysUserService {
 	

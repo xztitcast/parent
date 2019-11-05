@@ -11,7 +11,9 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.taotao.admin.entity.SysMenu;
 import com.taotao.admin.entity.SysUser;
@@ -20,6 +22,8 @@ import com.taotao.admin.mapper.SysUserMapper;
 import com.taotao.admin.service.ShiroService;
 import com.taotao.common.utils.Constant;
 
+@Component("shiroService")
+@Service(interfaceClass = ShiroService.class)
 public class ShiroServiceImpl implements ShiroService {
 
 	private static final String SESSION_ID = "sessionId:";

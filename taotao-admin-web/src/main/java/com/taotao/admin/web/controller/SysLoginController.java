@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,7 +54,7 @@ public class SysLoginController extends BaseController {
 	}
 
 	@PostMapping("/login")
-	public R login(LoginForm form) {
+	public R login(@RequestBody LoginForm form) {
 		String captcha = restTemplate.opsForValue().get(form.getUuid());
 		if(StringUtils.isBlank(captcha)) {
 			return R.error("验证码已失效!");
@@ -62,6 +63,7 @@ public class SysLoginController extends BaseController {
 			return R.error("验证码不正确!");
 		}
 		SysUser user = sysUserService.queryByUserName(form.getUsername());
+		System.out.println(new Sha256Hash(form.getPassword(), user.getSalt()).toHex());
 		if(user == null || !user.getPassword().equals(new Sha256Hash(form.getPassword(), user.getSalt()).toHex())) {
 			return R.error("账号或密码不正确");
 		}
@@ -75,7 +77,7 @@ public class SysLoginController extends BaseController {
 	
 	@PostMapping("/logout")
 	public R logout(HttpServletRequest request) {
-		String token = request.getHeader("consoleToken");
+		String token = request.getHeader("token");
 		shiroService.remove(token);
 		SecurityUtils.getSubject().logout();
 		return R.ok();
