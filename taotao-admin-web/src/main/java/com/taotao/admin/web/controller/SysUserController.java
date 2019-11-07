@@ -52,6 +52,11 @@ public class SysUserController extends BaseController {
 	@RequiresPermissions("sys:user:info")
 	public R info(@PathVariable("userId") Long userId) {
 		SysUser user = sysUserService.queryByUserId(userId);
+		if(user == null) {
+			return R.error("用户不存在");
+		}
+		user.setPassword("");
+		user.setSalt("");
 		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(userId);
 		user.setRoleIdList(roleIdList);
 		return R.ok(user);
@@ -59,9 +64,19 @@ public class SysUserController extends BaseController {
 	
 	@PostMapping("/save")
 	@RequiresPermissions("sys:user:save")
-	public R save(SysUser user) {
+	public R save(@RequestBody SysUser user) {
 		user.setCreateTime(new Date());
 		user.setCreateUserId(getUserId());
+		String salt = RandomStringUtils.randomAlphanumeric(20);
+		user.setPassword(new Sha256Hash(user.getPassword(), salt).toHex());
+		user.setSalt(salt);
+		sysUserService.saveOrUpdate(user);
+		return R.ok();
+	}
+	
+	@PostMapping("/update")
+	@RequiresPermissions("sys:user:update")
+	public R update(@RequestBody SysUser user) {
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setPassword(new Sha256Hash(user.getPassword(), salt).toHex());
 		user.setSalt(salt);

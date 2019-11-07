@@ -59,7 +59,6 @@ public class OAuth2Realm extends AuthorizingRealm {
         if(sysUser.getStatus()){
             throw new LockedAccountException("账号已被锁定,请联系管理员");
         }
-
         return new SimpleAuthenticationInfo(sysUser, accessToken, getName());
 	}
 

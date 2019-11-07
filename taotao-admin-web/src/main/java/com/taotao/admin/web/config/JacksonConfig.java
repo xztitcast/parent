@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -38,6 +42,14 @@ public class JacksonConfig {
         						  .addSerializer(Long.TYPE, ToStringSerializer.instance)
         						  .addSerializer(BigInteger.class, ToStringSerializer.instance)
         						  .addSerializer(BigDecimal.class, ToStringSerializer.instance)
+								  .addDeserializer(String.class, new JsonDeserializer<String>() {
+									  @Override public String deserialize(JsonParser p, DeserializationContext
+									  ctxt) throws IOException, JsonProcessingException { 
+										  String value = p.getText(); 
+										  return value == null || value.trim().equals("") || value.equals("undefined") ? null : value; 
+									}
+								  })
+		 
         );
         return objectMapper;
     }

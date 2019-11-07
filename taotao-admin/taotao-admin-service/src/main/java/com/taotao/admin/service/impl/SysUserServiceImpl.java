@@ -25,6 +25,7 @@ public class SysUserServiceImpl implements SysUserService {
 	@Autowired
 	private SysUserMapper sysUserMapper;
 	
+	@Autowired
 	private SysUserRoleService sysUserRoleService;
 
 	@Override
@@ -58,10 +59,10 @@ public class SysUserServiceImpl implements SysUserService {
 	@Override
 	@Transactional
 	public void saveOrUpdate(SysUser user) {
-		if(user.getUserId() == null) {
+		if(user.getUserId() == null || user.getUserId() <= 0) {
 			sysUserMapper.insert(user);
 		}else {
-			sysUserMapper.updateById(user);
+			sysUserMapper.updateBySelective(user);
 		}
 		
 		//check user's permissions

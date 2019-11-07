@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +28,7 @@ public class SysUser implements Serializable {
 
     private String mobile;
 
+    @JsonFormat(shape = Shape.NUMBER)
     private Boolean status;
 
     private Long createUserId;

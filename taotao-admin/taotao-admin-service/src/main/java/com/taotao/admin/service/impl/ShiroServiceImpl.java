@@ -39,6 +39,8 @@ public class ShiroServiceImpl implements ShiroService {
 
 	@Override
 	public String createToken(SysUser adminUser) {
+		adminUser.setPassword("");
+		adminUser.setSalt("");
 		String token = UUID.randomUUID().toString().replace("-", "");
 		redisTemplate.opsForValue().set(SESSION_ID + token, JSON.toJSONString(adminUser), 12, TimeUnit.HOURS);
 		return token;
