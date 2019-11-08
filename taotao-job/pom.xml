@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.taotao</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>taotao-job</artifactId>
+  <packaging>pom</packaging>
+  <name>taotao-job</name>
+  <description>定时任务块</description>
+  <modules>
+  	<module>taotao-job-dao</module>
+  	<module>taotao-job-model</module>
+  	<module>taotao-job-service</module>
+  	<module>taotao-job-interface</module>
+  </modules>
+  <dependencies>
+  		<dependency>
+  			<groupId>${groupId}</groupId>
+		    <artifactId>taotao-common</artifactId>
+		    <version>${version}</version>
+  		</dependency>
+  </dependencies>
+</project>

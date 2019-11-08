@@ -18,5 +18,6 @@
   	<module>taotao-admin</module>
   	<module>taotao-admin-web</module>
   	<module>taotao-common</module>
+  	<module>taotao-job</module>
   </modules>
 </project>

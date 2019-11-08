@@ -1,0 +1,41 @@
+server:
+  port: 9999
+  tomcat:    uri-encoding: UTF-8
+    
+spring:  application:    name: taotao-job-service
+  jackson:    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:    url: jdbc:mysql://192.168.25.107:3306/job?allowMultiQueries=true&useUnicode=true&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: user
+    password: jiushi123
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: CmsHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  quartz:    job-store-type: jdbc
+    jdbc:      initialize-schema: never
+    scheduler-name: taotao
+    startup-delay: 30s
+    auto-startup: true
+    overwrite-existing-jobs: true
+    properties:      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO
+          jobStore:
+            isClustered: true
+            tablePrefix: qrtz_
+            misfireThreshold: 60000
+            clusterCheckinInterval: 5000
+            maxMisfiresToHandleAtATime: 1
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+          threadPool:
+            threadCount: 20
+            threadPriority: 5
+            class: org.quartz.simpl.SimpleThreadPool

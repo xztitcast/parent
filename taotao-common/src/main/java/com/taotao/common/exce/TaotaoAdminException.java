@@ -7,5 +7,9 @@ public class TaotaoAdminException extends RuntimeException {
 	public TaotaoAdminException(String arg0) {
 		super(arg0);
 	}
+
+	public TaotaoAdminException(String message, Throwable cause) {
+		super(message, cause);
+	}
 	
 }

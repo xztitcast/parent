@@ -43,7 +43,9 @@ public class SysMenuController extends BaseController {
 		List<SysMenu> menuList = sysMenuService.queryList();
 		menuList.forEach(m -> {
 			SysMenu menu = sysMenuService.queryById(m.getParentId());
-			m.setParentName(menu.getName());
+			if(menu != null) {
+				m.setParentName(menu.getName());
+			}
 		});
 		return menuList;
 	}
